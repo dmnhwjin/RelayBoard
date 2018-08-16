@@ -1,0 +1,837 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html">
+<style type="text/css">
+		h1, h2, h3, h4, h5, h6 {
+			font-family : segoe ui;
+			color : black;
+			background-color : #EDE7D9;
+			padding: 0.3em;
+		}
+
+		h1 {
+			font-size: 1.2em;
+		}		
+
+		h2 {
+			font-size: 1.2em;
+		}
+
+		body {
+			font-family : segoe ui;
+		}
+
+		td, th {
+			padding: 0.5em;
+			text-align : left;
+			width: 10em;
+		}
+		th {
+			background-color : #EEEEEE;
+
+		}
+		th.column1, td.column1 {
+			text-align: left;
+			width : auto;
+		}
+		table {
+			width : 100%;
+			font-size: 0.9em;
+		}
+
+		.DRC_summary_header {
+			padding-bottom : 0.1em;
+			border : 0px solid black;
+			width: 100%;
+			align: left;
+		}
+
+		.DRC_summary_header_col1,
+		.DRC_summary_header_col2, 
+		.DRC_summary_header_col3 {
+			color : black;
+			font-size:100%;
+			padding : 0em;
+			padding-top : 0.2em;
+			padding-bottom 0.2em;
+			border : 0px solid black;
+			vertical-align: top;
+			text-align: left;
+		}
+
+		.DRC_summary_header_col1 {
+			font-weight: bold;
+			width: 8em;
+		}
+
+		.DRC_summary_header_col2 {
+			width: 0.1em;
+		
+		}
+
+		.DRC_summary_header_col3 {
+			width : auto;
+		}
+
+		.header_holder {
+		    Width = 100%;
+		    border = 0px solid green;
+		    padding = 0;
+		}
+
+
+		.front_matter, .front_matter_column1, .front_matter_column2, .front_matter_column3
+		{
+			left : 0;
+			top : 0;
+			padding: 0em;
+			padding-top : 0.1em;
+			border : 0px solid black;
+			width : 100%;
+			vertical-align: top;
+			text-align: left;
+		}
+
+		.front_matter_column1 {
+			width : 8em;
+			font-weight: bold;
+		}
+
+		.front_matter_column2 {
+			width: 0.1em;
+		}
+
+		.front_matter_column3 {
+			width : auto;
+		}
+
+		.total_column1, .total_column {
+			font-weight : bold;
+		}
+		.total_column1 {
+			text-align : left;
+		}
+		.warning, .error {
+			color : red;
+			font-weight : bold;
+		}
+		tr.onmouseout_odd {
+			background-color : #white;
+		}
+		tr.onmouseout_even { 
+			background-color : #FAFAFA;
+		}
+		tr.onmouseover_odd, tr.onmouseover_even { 
+			background-color : #EEEEEE;
+		} 
+		a:link, a:visited, .q a:link,.q a:active,.q {
+			color: #21489e; 
+		}
+		a:link.callback, a:visited.callback { 
+			color: #21489e;
+		}
+		a:link.customize, a:visited.customize {
+			color: #C0C0C0;
+			position: absolute; 
+			right: 10px;
+		}	
+		p.contents_level1 {
+			font-weight : bold;
+			font-size : 110%;
+			margin : 0.5em;
+		}
+		p.contents_level2 {
+			position : relative;
+			left : 20px;
+			margin : 0.5em;
+		}
+	</style><script type="text/javascript">
+		function coordToMils(coord) {
+			var number = coord / 10000;
+			
+			if (number != number.toFixed(3))
+				number = number.toFixed(3);
+
+			return number + 'mil'
+		}
+
+		function coordToMM(coord) {
+			var number = 0.0254 * coord / 10000;
+			
+			if (number != number.toFixed(4))
+				number = number.toFixed(4);
+			
+			return number + 'mm'
+		}
+	
+		function convertCoord(coordNode, units) {
+			for (var i = 0; i < coordNode.childNodes.length; i++) {
+				coordNode.removeChild(coordNode.childNodes[i]);
+			}
+
+			var coord = coordNode.getAttribute('value');
+			if (coord != null) {
+				if (units == 'mm') {
+					textNode = document.createTextNode(coordToMM(coord));
+					coordNode.appendChild(textNode);
+				} else if (units == 'mil') {
+					textNode = document.createTextNode(coordToMils(coord));		
+					coordNode.appendChild(textNode);	
+				}
+			}
+		}
+	
+		function convertUnits(unitNode, units) {
+			for (var i = 0; i < unitNode.childNodes.length; i++) {
+				unitNode.removeChild(unitNode.childNodes[i]);		
+			}
+		
+			textNode = document.createTextNode(units); 
+			unitNode.appendChild(textNode);
+		}
+	
+		function changeUnits(radio_input, units) {
+			if (radio_input.checked) {
+			
+				var elements = document.getElementsByName('coordinate');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertCoord(elements[i], units);
+					}
+				}
+	
+				var elements = document.getElementsByName('units');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertUnits(elements[i], units);
+					}
+				}
+			}
+		}
+	</script><title>Design Rule Verification Report</title>
+</head>
+<body onload=""><img ALT="Altium" src="
+			file://C:\Users\Public\Documents\Altium\AD18\Templates\AD_logo.png
+		"><h1>Design Rule Verification Report</h1>
+<table class="header_holder">
+<td class="column1">
+<table class="front_matter">
+<tr class="front_matter">
+<td class="front_matter_column1">Date:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">2018/7/8</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Time:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">22:43:58</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Elapsed Time:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">00:00:01</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Filename:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3"><a href="file:///C:\Users\Public\Documents\Altium\PCB1.PcbDoc" class="file"><acronym title="C:\Users\Public\Documents\Altium\PCB1.PcbDoc">C:\Users\Public\Documents\Altium\PCB1.PcbDoc</acronym></a></td>
+</tr>
+</table>
+</td>
+<td class="column2">
+<table class="DRC_summary_header">
+<tr>
+<td class="DRC_summary_header_col1">Warnings:</td>
+<td class="DRC_summary_header_col2"></td>
+<td class="DRC_summary_header_col3">0</td></tr>
+<tr>
+<td class="DRC_summary_header_col1">Rule Violations:</td>
+<td class="DRC_summary_header_col2"></td>
+<td class="DRC_summary_header_col3" style="color : red">167</td></tr>
+</table>
+</td>
+</table><a name="IDUOSBO4FY2MKLIRU34O33DRZUAKLUQXEBHVQZPVN2UDF4V1T2V2WN"><h2>Summary</h2></a><table>
+<tr>
+<th class="column1">Warnings</th>
+<th class="column2">Count</th>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">0</td>
+</tr>
+</table><br><table>
+<tr>
+<th class="column1">Rule Violations</th>
+<th class="column2">Count</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDZF25OAJ4JCTAI0LEPUFSI32PLNLNMJPF44SBX0MV1C1LGDDMLCR">Clearance Constraint (Gap=0.254mm) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDXYNH4HALB45CEKHSMYCN4SWWHCZDY4KAMCRFYPDKMAC5KEOIMTFB">Short-Circuit Constraint (Allowed=No) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDKVLIQ5A0OCK1LDWJXK4142HSLGGTRXEWRJBUL0ECNGXJTVY4K4YF">Un-Routed Net Constraint ( (All) )</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDHPCAEZ0WJFTLEMLKXUOXQ5NW2Y2NLOBX5H3WLIYZQKMNVTWCPUO">Modified Polygon (Allow modified: No), (Allow shelved: No)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDMJ5BJH4MVDTOD2H0KA13SCFFJNZSM55IF3G0HRKSWWHSX43HR1JH">Width Constraint (Min=0.254mm) (Max=0.254mm) (Preferred=0.254mm) (All)</a></td>
+<td class="column2">161</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDQZX2002K34IZMT0WLO30CUCH0PBHVXBXPEMEWAB3KJHLL4WKB54I">Power Plane Connect Rule(Relief Connect )(Expansion=0.508mm) (Conductor Width=0.254mm) (Air Gap=0.254mm) (Entries=4) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDTZU3WDT01HLND3Z1GCZJEFW2MM5QH2QQWGWFLOGN4XTVNZXBUGCI">Hole Size Constraint (Min=0.025mm) (Max=2.54mm) (All)</a></td>
+<td class="column2">4</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#ID1QIYA3NAHLIMBCPVOKYNTP4DSGFKNQHJBEKZXQONOTJRFCY4S1N">Hole To Hole Clearance (Gap=0.254mm) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDKSOH2UMI3T3H1QJBZCZQKVXTNEO2HT1FTZDCSHQZES0QLSWQVNL">Minimum Solder Mask Sliver (Gap=0.254mm) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDSQZ4TTFACAJNJQZCKEJWDNIRAE3Y0MKXEP410ZBVL1H5DWNCFIP">Silk To Solder Mask (Clearance=0.254mm) (IsPad),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDPVNZYTJTU0YDFLLAB4X2W2D3HBWFC0W0LXSEUQL0UVC4GI4XV4AN">Silk to Silk (Clearance=0.254mm) (All),(All)</a></td>
+<td class="column2">2</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDAPERU0RZDGLXK24C0AP5YJWIFPHBA4E22RR0SMKAFVWTTZVFR35M">Net Antennae (Tolerance=0mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#ID0W5BSFLW3EWXL1AFDTHP22HQQG5TDQTNH5SSJRK4IIDU3XRFC2QJ">Height Constraint (Min=0mm) (Max=25.4mm) (Prefered=12.7mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">167</td>
+</tr>
+</table><br><a name="IDMJ5BJH4MVDTOD2H0KA13SCFFJNZSM55IF3G0HRKSWWHSX43HR1JH"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Width Constraint (Min=0.254mm) (Max=0.254mm) (Preferred=0.254mm) (All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5034.445mil|Location2.X=5155.555mil|Location1.Y=2789.445mil|Location2.Y=2910.555mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5034.445mil|Location2.X=5155.555mil|Location1.Y=2789.445mil|Location2.Y=2910.555mil|Absolute=True">Width Constraint: Track (100.965mm,20.32mm)(107.061mm,20.32mm) on Bottom Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5029.445mil|Location2.X=5150.555mil|Location1.Y=3189.445mil|Location2.Y=3310.555mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5029.445mil|Location2.X=5150.555mil|Location1.Y=3189.445mil|Location2.Y=3310.555mil|Absolute=True">Width Constraint: Track (100.965mm,30.48mm)(106.807mm,30.48mm) on Top Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5079.445mil|Location2.X=5200.555mil|Location1.Y=3189.445mil|Location2.Y=3310.555mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5079.445mil|Location2.X=5200.555mil|Location1.Y=3189.445mil|Location2.Y=3310.555mil|Absolute=True">Width Constraint: Track (100.965mm,30.48mm)(109.347mm,30.48mm) on Bottom Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5009.445mil|Location2.X=5130.555mil|Location1.Y=4139.445mil|Location2.Y=4260.555mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5009.445mil|Location2.X=5130.555mil|Location1.Y=4139.445mil|Location2.Y=4260.555mil|Absolute=True">Width Constraint: Track (101.346mm,54.61mm)(105.41mm,54.61mm) on Top Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5014.445mil|Location2.X=5135.555mil|Location1.Y=4144.445mil|Location2.Y=4265.555mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5014.445mil|Location2.X=5135.555mil|Location1.Y=4144.445mil|Location2.Y=4265.555mil|Absolute=True">Width Constraint: Track (101.473mm,54.737mm)(105.537mm,54.737mm) on Bottom Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5001.945mil|Location2.X=5123.055mil|Location1.Y=3744.445mil|Location2.Y=3865.555mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5001.945mil|Location2.X=5123.055mil|Location1.Y=3744.445mil|Location2.Y=3865.555mil|Absolute=True">Width Constraint: Track (101.6mm,44.577mm)(104.775mm,44.577mm) on Bottom Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5036.945mil|Location2.X=5158.055mil|Location1.Y=3744.445mil|Location2.Y=3865.555mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5036.945mil|Location2.X=5158.055mil|Location1.Y=3744.445mil|Location2.Y=3865.555mil|Absolute=True">Width Constraint: Track (101.6mm,44.577mm)(106.553mm,44.577mm) on Top Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5039.445mil|Location2.X=5160.555mil|Location1.Y=2764.445mil|Location2.Y=2885.555mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5039.445mil|Location2.X=5160.555mil|Location1.Y=2764.445mil|Location2.Y=2885.555mil|Absolute=True">Width Constraint: Track (101.854mm,19.685mm)(106.426mm,19.685mm) on Top Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5236.945mil|Location2.X=5358.055mil|Location1.Y=3916.945mil|Location2.Y=4038.055mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5236.945mil|Location2.X=5358.055mil|Location1.Y=3916.945mil|Location2.Y=4038.055mil|Absolute=True">Width Constraint: Track (104.775mm,44.577mm)(113.538mm,53.34mm) on Bottom Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5199.445mil|Location2.X=5320.555mil|Location1.Y=4249.445mil|Location2.Y=4370.555mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5199.445mil|Location2.X=5320.555mil|Location1.Y=4249.445mil|Location2.Y=4370.555mil|Absolute=True">Width Constraint: Track (105.41mm,54.61mm)(110.998mm,60.198mm) on Top Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5201.945mil|Location2.X=5323.055mil|Location1.Y=4251.945mil|Location2.Y=4373.055mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5201.945mil|Location2.X=5323.055mil|Location1.Y=4251.945mil|Location2.Y=4373.055mil|Absolute=True">Width Constraint: Track (105.537mm,54.737mm)(110.998mm,60.198mm) on Bottom Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5286.945mil|Location2.X=5408.055mil|Location1.Y=2921.945mil|Location2.Y=3043.055mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5286.945mil|Location2.X=5408.055mil|Location1.Y=2921.945mil|Location2.Y=3043.055mil|Absolute=True">Width Constraint: Track (106.426mm,19.685mm)(114.427mm,27.686mm) on Top Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5311.945mil|Location2.X=5433.055mil|Location1.Y=3921.945mil|Location2.Y=4043.055mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5311.945mil|Location2.X=5433.055mil|Location1.Y=3921.945mil|Location2.Y=4043.055mil|Absolute=True">Width Constraint: Track (106.553mm,44.577mm)(115.57mm,53.594mm) on Top Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5216.945mil|Location2.X=5338.055mil|Location1.Y=3261.945mil|Location2.Y=3383.055mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5216.945mil|Location2.X=5338.055mil|Location1.Y=3261.945mil|Location2.Y=3383.055mil|Absolute=True">Width Constraint: Track (106.807mm,30.48mm)(110.49mm,34.163mm) on Top Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5299.445mil|Location2.X=5420.555mil|Location1.Y=2934.445mil|Location2.Y=3055.555mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5299.445mil|Location2.X=5420.555mil|Location1.Y=2934.445mil|Location2.Y=3055.555mil|Absolute=True">Width Constraint: Track (107.061mm,20.32mm)(114.427mm,27.686mm) on Bottom Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5316.945mil|Location2.X=5438.055mil|Location1.Y=3261.945mil|Location2.Y=3383.055mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5316.945mil|Location2.X=5438.055mil|Location1.Y=3261.945mil|Location2.Y=3383.055mil|Absolute=True">Width Constraint: Track (109.347mm,30.48mm)(113.03mm,34.163mm) on Bottom Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5519.445mil|Location2.X=5640.555mil|Location1.Y=3334.445mil|Location2.Y=3455.555mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5519.445mil|Location2.X=5640.555mil|Location1.Y=3334.445mil|Location2.Y=3455.555mil|Absolute=True">Width Constraint: Track (110.49mm,34.163mm)(122.174mm,34.163mm) on Top Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5529.445mil|Location2.X=5650.555mil|Location1.Y=4359.445mil|Location2.Y=4480.555mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5529.445mil|Location2.X=5650.555mil|Location1.Y=4359.445mil|Location2.Y=4480.555mil|Absolute=True">Width Constraint: Track (110.998mm,60.198mm)(122.174mm,60.198mm) on Bottom Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5529.445mil|Location2.X=5650.555mil|Location1.Y=4359.445mil|Location2.Y=4480.555mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5529.445mil|Location2.X=5650.555mil|Location1.Y=4359.445mil|Location2.Y=4480.555mil|Absolute=True">Width Constraint: Track (110.998mm,60.198mm)(122.174mm,60.198mm) on Top Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5569.445mil|Location2.X=5690.555mil|Location1.Y=3334.445mil|Location2.Y=3455.555mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5569.445mil|Location2.X=5690.555mil|Location1.Y=3334.445mil|Location2.Y=3455.555mil|Absolute=True">Width Constraint: Track (113.03mm,34.163mm)(122.174mm,34.163mm) on Bottom Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5606.945mil|Location2.X=5728.055mil|Location1.Y=4089.445mil|Location2.Y=4210.555mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5606.945mil|Location2.X=5728.055mil|Location1.Y=4089.445mil|Location2.Y=4210.555mil|Absolute=True">Width Constraint: Track (113.538mm,53.34mm)(123.571mm,53.34mm) on Bottom Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5596.945mil|Location2.X=5718.055mil|Location1.Y=3079.445mil|Location2.Y=3200.555mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5596.945mil|Location2.X=5718.055mil|Location1.Y=3079.445mil|Location2.Y=3200.555mil|Absolute=True">Width Constraint: Track (114.427mm,27.686mm)(122.174mm,27.686mm) on Bottom Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5596.945mil|Location2.X=5718.055mil|Location1.Y=3079.445mil|Location2.Y=3200.555mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5596.945mil|Location2.X=5718.055mil|Location1.Y=3079.445mil|Location2.Y=3200.555mil|Absolute=True">Width Constraint: Track (114.427mm,27.686mm)(122.174mm,27.686mm) on Top Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5619.445mil|Location2.X=5740.555mil|Location1.Y=4099.445mil|Location2.Y=4220.555mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5619.445mil|Location2.X=5740.555mil|Location1.Y=4099.445mil|Location2.Y=4220.555mil|Absolute=True">Width Constraint: Track (115.57mm,53.594mm)(122.174mm,53.594mm) on Top Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1551.945mil|Location2.X=1673.055mil|Location1.Y=2524.445mil|Location2.Y=2645.555mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1551.945mil|Location2.X=1673.055mil|Location1.Y=2524.445mil|Location2.Y=2645.555mil|Absolute=True">Width Constraint: Track (12.827mm,13.589mm)(18.288mm,13.589mm) on Bottom Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1551.945mil|Location2.X=1673.055mil|Location1.Y=2524.445mil|Location2.Y=2645.555mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1551.945mil|Location2.X=1673.055mil|Location1.Y=2524.445mil|Location2.Y=2645.555mil|Absolute=True">Width Constraint: Track (12.827mm,13.589mm)(18.288mm,13.589mm) on Top Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1549.445mil|Location2.X=1670.555mil|Location1.Y=2779.445mil|Location2.Y=2900.555mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1549.445mil|Location2.X=1670.555mil|Location1.Y=2779.445mil|Location2.Y=2900.555mil|Absolute=True">Width Constraint: Track (12.827mm,20.066mm)(18.161mm,20.066mm) on Top Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1614.445mil|Location2.X=1735.555mil|Location1.Y=2779.445mil|Location2.Y=2900.555mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1614.445mil|Location2.X=1735.555mil|Location1.Y=2779.445mil|Location2.Y=2900.555mil|Absolute=True">Width Constraint: Track (12.827mm,20.066mm)(21.463mm,20.066mm) on Bottom Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1476.945mil|Location2.X=1598.055mil|Location1.Y=3549.445mil|Location2.Y=3670.555mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1476.945mil|Location2.X=1598.055mil|Location1.Y=3549.445mil|Location2.Y=3670.555mil|Absolute=True">Width Constraint: Track (12.827mm,39.624mm)(14.478mm,39.624mm) on Bottom Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1506.945mil|Location2.X=1628.055mil|Location1.Y=3804.445mil|Location2.Y=3925.555mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1506.945mil|Location2.X=1628.055mil|Location1.Y=3804.445mil|Location2.Y=3925.555mil|Absolute=True">Width Constraint: Track (12.827mm,46.101mm)(16.002mm,46.101mm) on Bottom Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1531.945mil|Location2.X=1653.055mil|Location1.Y=4059.445mil|Location2.Y=4180.555mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1531.945mil|Location2.X=1653.055mil|Location1.Y=4059.445mil|Location2.Y=4180.555mil|Absolute=True">Width Constraint: Track (12.827mm,52.578mm)(17.272mm,52.578mm) on Bottom Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1531.945mil|Location2.X=1653.055mil|Location1.Y=4059.445mil|Location2.Y=4180.555mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1531.945mil|Location2.X=1653.055mil|Location1.Y=4059.445mil|Location2.Y=4180.555mil|Absolute=True">Width Constraint: Track (12.827mm,52.578mm)(17.272mm,52.578mm) on Top Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1574.445mil|Location2.X=1695.555mil|Location1.Y=4319.445mil|Location2.Y=4440.555mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1574.445mil|Location2.X=1695.555mil|Location1.Y=4319.445mil|Location2.Y=4440.555mil|Absolute=True">Width Constraint: Track (12.827mm,59.182mm)(19.431mm,59.182mm) on Bottom Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1574.445mil|Location2.X=1695.555mil|Location1.Y=4319.445mil|Location2.Y=4440.555mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1574.445mil|Location2.X=1695.555mil|Location1.Y=4319.445mil|Location2.Y=4440.555mil|Absolute=True">Width Constraint: Track (12.827mm,59.182mm)(19.431mm,59.182mm) on Top Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1539.445mil|Location2.X=1660.555mil|Location1.Y=3804.445mil|Location2.Y=3925.555mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1539.445mil|Location2.X=1660.555mil|Location1.Y=3804.445mil|Location2.Y=3925.555mil|Absolute=True">Width Constraint: Track (14.351mm,46.101mm)(16.129mm,46.101mm) on Top Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1856.945mil|Location2.X=1978.055mil|Location1.Y=3201.945mil|Location2.Y=3323.055mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1856.945mil|Location2.X=1978.055mil|Location1.Y=3201.945mil|Location2.Y=3323.055mil|Absolute=True">Width Constraint: Track (14.478mm,39.624mm)(32.131mm,21.971mm) on Top Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1859.445mil|Location2.X=1980.555mil|Location1.Y=3199.445mil|Location2.Y=3320.555mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1859.445mil|Location2.X=1980.555mil|Location1.Y=3199.445mil|Location2.Y=3320.555mil|Absolute=True">Width Constraint: Track (14.478mm,39.624mm)(32.258mm,21.844mm) on Bottom Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1876.945mil|Location2.X=1998.055mil|Location1.Y=3496.945mil|Location2.Y=3618.055mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1876.945mil|Location2.X=1998.055mil|Location1.Y=3496.945mil|Location2.Y=3618.055mil|Absolute=True">Width Constraint: Track (16.002mm,46.101mm)(31.623mm,30.48mm) on Bottom Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1881.945mil|Location2.X=2003.055mil|Location1.Y=3496.945mil|Location2.Y=3618.055mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1881.945mil|Location2.X=2003.055mil|Location1.Y=3496.945mil|Location2.Y=3618.055mil|Absolute=True">Width Constraint: Track (16.129mm,46.101mm)(31.75mm,30.48mm) on Top Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1789.445mil|Location2.X=1910.555mil|Location1.Y=3889.445mil|Location2.Y=4010.555mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1789.445mil|Location2.X=1910.555mil|Location1.Y=3889.445mil|Location2.Y=4010.555mil|Absolute=True">Width Constraint: Track (17.272mm,52.578mm)(25.908mm,43.942mm) on Bottom Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1789.445mil|Location2.X=1910.555mil|Location1.Y=3889.445mil|Location2.Y=4010.555mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1789.445mil|Location2.X=1910.555mil|Location1.Y=3889.445mil|Location2.Y=4010.555mil|Absolute=True">Width Constraint: Track (17.272mm,52.578mm)(25.908mm,43.942mm) on Top Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1771.945mil|Location2.X=1893.055mil|Location1.Y=2779.445mil|Location2.Y=2900.555mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1771.945mil|Location2.X=1893.055mil|Location1.Y=2779.445mil|Location2.Y=2900.555mil|Absolute=True">Width Constraint: Track (18.161mm,20.066mm)(24.13mm,20.066mm) on Top Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1849.445mil|Location2.X=1970.555mil|Location1.Y=2334.445mil|Location2.Y=2455.555mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1849.445mil|Location2.X=1970.555mil|Location1.Y=2334.445mil|Location2.Y=2455.555mil|Absolute=True">Width Constraint: Track (18.288mm,13.589mm)(27.94mm,3.937mm) on Bottom Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1849.445mil|Location2.X=1970.555mil|Location1.Y=2334.445mil|Location2.Y=2455.555mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1849.445mil|Location2.X=1970.555mil|Location1.Y=2334.445mil|Location2.Y=2455.555mil|Absolute=True">Width Constraint: Track (18.288mm,13.589mm)(27.94mm,3.937mm) on Top Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1804.445mil|Location2.X=1925.555mil|Location1.Y=4219.445mil|Location2.Y=4340.555mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1804.445mil|Location2.X=1925.555mil|Location1.Y=4219.445mil|Location2.Y=4340.555mil|Absolute=True">Width Constraint: Track (19.431mm,59.182mm)(24.511mm,54.102mm) on Bottom Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1806.945mil|Location2.X=1928.055mil|Location1.Y=4216.945mil|Location2.Y=4338.055mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1806.945mil|Location2.X=1928.055mil|Location1.Y=4216.945mil|Location2.Y=4338.055mil|Absolute=True">Width Constraint: Track (19.431mm,59.182mm)(24.638mm,53.975mm) on Top Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1996.945mil|Location2.X=2118.055mil|Location1.Y=2566.945mil|Location2.Y=2688.055mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1996.945mil|Location2.X=2118.055mil|Location1.Y=2566.945mil|Location2.Y=2688.055mil|Absolute=True">Width Constraint: Track (21.463mm,20.066mm)(32.258mm,9.271mm) on Bottom Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1852.84mil|Location2.X=1896.83mil|Location1.Y=4438.283mil|Location2.Y=4484.739mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1852.84mil|Location2.X=1896.83mil|Location1.Y=4438.283mil|Location2.Y=4484.739mil|Absolute=True">Width Constraint: Track (22.225mm,60.679mm)(22.225mm,61.722mm) on Top Layer Actual Width = 1mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1907.594mil|Location2.X=1966.211mil|Location1.Y=4512.595mil|Location2.Y=4554.965mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1907.594mil|Location2.X=1966.211mil|Location1.Y=4512.595mil|Location2.Y=4554.965mil|Absolute=True">Width Constraint: Track (22.225mm,61.722mm)(24.957mm,64.454mm) on Top Layer Actual Width = 1mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2291.315mil|Location2.X=2356.49mil|Location1.Y=4913.815mil|Location2.Y=4956.185mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2291.315mil|Location2.X=2356.49mil|Location1.Y=4913.815mil|Location2.Y=4956.185mil|Absolute=True">Width Constraint: Track (22.225mm,73.279mm)(44.45mm,73.279mm) on Top Layer Actual Width = 1mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2091.945mil|Location2.X=2213.055mil|Location1.Y=2576.945mil|Location2.Y=2698.055mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2091.945mil|Location2.X=2213.055mil|Location1.Y=2576.945mil|Location2.Y=2698.055mil|Absolute=True">Width Constraint: Track (24.13mm,20.066mm)(34.417mm,9.779mm) on Top Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2061.945mil|Location2.X=2183.055mil|Location1.Y=4119.445mil|Location2.Y=4240.555mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2061.945mil|Location2.X=2183.055mil|Location1.Y=4119.445mil|Location2.Y=4240.555mil|Absolute=True">Width Constraint: Track (24.511mm,54.102mm)(32.512mm,54.102mm) on Bottom Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2061.945mil|Location2.X=2183.055mil|Location1.Y=4114.445mil|Location2.Y=4235.555mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2061.945mil|Location2.X=2183.055mil|Location1.Y=4114.445mil|Location2.Y=4235.555mil|Absolute=True">Width Constraint: Track (24.638mm,53.975mm)(32.385mm,53.975mm) on Top Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2000.094mil|Location2.X=2058.711mil|Location1.Y=4605.095mil|Location2.Y=4647.465mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2000.094mil|Location2.X=2058.711mil|Location1.Y=4605.095mil|Location2.Y=4647.465mil|Absolute=True">Width Constraint: Track (24.957mm,64.454mm)(26.924mm,66.421mm) on Top Layer Actual Width = 1mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2089.445mil|Location2.X=2210.555mil|Location1.Y=3719.445mil|Location2.Y=3840.555mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2089.445mil|Location2.X=2210.555mil|Location1.Y=3719.445mil|Location2.Y=3840.555mil|Absolute=True">Width Constraint: Track (25.908mm,43.942mm)(32.512mm,43.942mm) on Bottom Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2089.445mil|Location2.X=2210.555mil|Location1.Y=3719.445mil|Location2.Y=3840.555mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2089.445mil|Location2.X=2210.555mil|Location1.Y=3719.445mil|Location2.Y=3840.555mil|Absolute=True">Width Constraint: Track (25.908mm,43.942mm)(32.512mm,43.942mm) on Top Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2391.315mil|Location2.X=2456.49mil|Location1.Y=4643.815mil|Location2.Y=4686.185mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2391.315mil|Location2.X=2456.49mil|Location1.Y=4643.815mil|Location2.Y=4686.185mil|Absolute=True">Width Constraint: Track (26.924mm,66.421mm)(44.831mm,66.421mm) on Top Layer Actual Width = 1mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3256.945mil|Location2.X=3378.055mil|Location1.Y=2144.445mil|Location2.Y=2265.555mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3256.945mil|Location2.X=3378.055mil|Location1.Y=2144.445mil|Location2.Y=2265.555mil|Absolute=True">Width Constraint: Track (27.94mm,3.937mm)(89.789mm,3.937mm) on Bottom Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3264.445mil|Location2.X=3385.555mil|Location1.Y=2144.445mil|Location2.Y=2265.555mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3264.445mil|Location2.X=3385.555mil|Location1.Y=2144.445mil|Location2.Y=2265.555mil|Absolute=True">Width Constraint: Track (27.94mm,3.937mm)(90.17mm,3.937mm) on Top Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2196.945mil|Location2.X=2318.055mil|Location1.Y=3189.445mil|Location2.Y=3310.555mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2196.945mil|Location2.X=2318.055mil|Location1.Y=3189.445mil|Location2.Y=3310.555mil|Absolute=True">Width Constraint: Track (31.623mm,30.48mm)(32.258mm,30.48mm) on Bottom Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2199.445mil|Location2.X=2320.555mil|Location1.Y=3189.445mil|Location2.Y=3310.555mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2199.445mil|Location2.X=2320.555mil|Location1.Y=3189.445mil|Location2.Y=3310.555mil|Absolute=True">Width Constraint: Track (31.75mm,30.48mm)(32.258mm,30.48mm) on Top Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2204.445mil|Location2.X=2325.555mil|Location1.Y=2816.945mil|Location2.Y=2938.055mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2204.445mil|Location2.X=2325.555mil|Location1.Y=2816.945mil|Location2.Y=2938.055mil|Absolute=True">Width Constraint: Track (32.131mm,20.066mm)(32.131mm,21.971mm) on Top Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2209.445mil|Location2.X=2330.555mil|Location1.Y=2819.445mil|Location2.Y=2940.555mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2209.445mil|Location2.X=2330.555mil|Location1.Y=2819.445mil|Location2.Y=2940.555mil|Absolute=True">Width Constraint: Track (32.258mm,20.32mm)(32.258mm,21.844mm) on Bottom Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2229.445mil|Location2.X=2350.555mil|Location1.Y=2354.445mil|Location2.Y=2475.555mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2229.445mil|Location2.X=2350.555mil|Location1.Y=2354.445mil|Location2.Y=2475.555mil|Absolute=True">Width Constraint: Track (32.258mm,9.271mm)(33.274mm,9.271mm) on Bottom Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2314.445mil|Location2.X=2435.555mil|Location1.Y=2354.445mil|Location2.Y=2475.555mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2314.445mil|Location2.X=2435.555mil|Location1.Y=2354.445mil|Location2.Y=2475.555mil|Absolute=True">Width Constraint: Track (33.274mm,9.271mm)(36.576mm,9.271mm) on Bottom Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3356.945mil|Location2.X=3478.055mil|Location1.Y=2374.445mil|Location2.Y=2495.555mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3356.945mil|Location2.X=3478.055mil|Location1.Y=2374.445mil|Location2.Y=2495.555mil|Absolute=True">Width Constraint: Track (34.417mm,9.779mm)(88.392mm,9.779mm) on Top Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2401.315mil|Location2.X=2460.164mil|Location1.Y=4486.315mil|Location2.Y=4528.685mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2401.315mil|Location2.X=2460.164mil|Location1.Y=4486.315mil|Location2.Y=4528.685mil|Absolute=True">Width Constraint: Track (34.671mm,63.881mm)(37.592mm,60.96mm) on Top Layer Actual Width = 1mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2431.945mil|Location2.X=2553.055mil|Location1.Y=4031.945mil|Location2.Y=4153.055mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2431.945mil|Location2.X=2553.055mil|Location1.Y=4031.945mil|Location2.Y=4153.055mil|Absolute=True">Width Constraint: Track (35.814mm,49.784mm)(40.005mm,53.975mm) on Top Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2349.445mil|Location2.X=2470.555mil|Location1.Y=3156.945mil|Location2.Y=3278.055mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2349.445mil|Location2.X=2470.555mil|Location1.Y=3156.945mil|Location2.Y=3278.055mil|Absolute=True">Width Constraint: Track (35.814mm,9.525mm)(35.814mm,49.784mm) on Top Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2359.445mil|Location2.X=2480.555mil|Location1.Y=3156.945mil|Location2.Y=3278.055mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2359.445mil|Location2.X=2480.555mil|Location1.Y=3156.945mil|Location2.Y=3278.055mil|Absolute=True">Width Constraint: Track (36.068mm,50.038mm)(36.068mm,9.271mm) on Bottom Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2439.445mil|Location2.X=2560.555mil|Location1.Y=4039.445mil|Location2.Y=4160.555mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2439.445mil|Location2.X=2560.555mil|Location1.Y=4039.445mil|Location2.Y=4160.555mil|Absolute=True">Width Constraint: Track (36.068mm,50.038mm)(40.132mm,54.102mm) on Bottom Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3369.445mil|Location2.X=3490.555mil|Location1.Y=2354.445mil|Location2.Y=2475.555mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3369.445mil|Location2.X=3490.555mil|Location1.Y=2354.445mil|Location2.Y=2475.555mil|Absolute=True">Width Constraint: Track (36.068mm,9.271mm)(87.376mm,9.271mm) on Bottom Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2454.445mil|Location2.X=2575.555mil|Location1.Y=3179.445mil|Location2.Y=3300.555mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2454.445mil|Location2.X=2575.555mil|Location1.Y=3179.445mil|Location2.Y=3300.555mil|Absolute=True">Width Constraint: Track (37.211mm,30.226mm)(39.751mm,30.226mm) on Bottom Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2933.815mil|Location2.X=2998.99mil|Location1.Y=4428.815mil|Location2.Y=4471.185mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2933.815mil|Location2.X=2998.99mil|Location1.Y=4428.815mil|Location2.Y=4471.185mil|Absolute=True">Width Constraint: Track (37.592mm,60.96mm)(61.722mm,60.96mm) on Top Layer Actual Width = 1mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2542.84mil|Location2.X=2586.83mil|Location1.Y=4513.815mil|Location2.Y=4560.27mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2542.84mil|Location2.X=2586.83mil|Location1.Y=4513.815mil|Location2.Y=4560.27mil|Absolute=True">Width Constraint: Track (39.751mm,62.357mm)(39.751mm,63.881mm) on Bottom Layer Actual Width = 1mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2576.315mil|Location2.X=2635.164mil|Location1.Y=4451.315mil|Location2.Y=4493.685mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2576.315mil|Location2.X=2635.164mil|Location1.Y=4451.315mil|Location2.Y=4493.685mil|Absolute=True">Width Constraint: Track (39.751mm,62.357mm)(41.402mm,60.706mm) on Bottom Layer Actual Width = 1mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2621.945mil|Location2.X=2743.055mil|Location1.Y=2789.445mil|Location2.Y=2910.555mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2621.945mil|Location2.X=2743.055mil|Location1.Y=2789.445mil|Location2.Y=2910.555mil|Absolute=True">Width Constraint: Track (40.005mm,20.32mm)(45.466mm,20.32mm) on Top Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2631.945mil|Location2.X=2753.055mil|Location1.Y=2789.445mil|Location2.Y=2910.555mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2631.945mil|Location2.X=2753.055mil|Location1.Y=2789.445mil|Location2.Y=2910.555mil|Absolute=True">Width Constraint: Track (40.005mm,20.32mm)(45.974mm,20.32mm) on Bottom Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2521.945mil|Location2.X=2643.055mil|Location1.Y=3714.445mil|Location2.Y=3835.555mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2521.945mil|Location2.X=2643.055mil|Location1.Y=3714.445mil|Location2.Y=3835.555mil|Absolute=True">Width Constraint: Track (40.005mm,43.815mm)(40.386mm,43.815mm) on Bottom Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2639.445mil|Location2.X=2760.555mil|Location1.Y=3604.445mil|Location2.Y=3725.555mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2639.445mil|Location2.X=2760.555mil|Location1.Y=3604.445mil|Location2.Y=3725.555mil|Absolute=True">Width Constraint: Track (40.386mm,43.815mm)(45.974mm,38.227mm) on Bottom Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2639.445mil|Location2.X=2760.555mil|Location1.Y=3604.445mil|Location2.Y=3725.555mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2639.445mil|Location2.X=2760.555mil|Location1.Y=3604.445mil|Location2.Y=3725.555mil|Absolute=True">Width Constraint: Track (40.386mm,43.815mm)(45.974mm,38.227mm) on Top Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3061.315mil|Location2.X=3126.49mil|Location1.Y=4418.815mil|Location2.Y=4461.185mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3061.315mil|Location2.X=3126.49mil|Location1.Y=4418.815mil|Location2.Y=4461.185mil|Absolute=True">Width Constraint: Track (41.402mm,60.706mm)(64.389mm,60.706mm) on Bottom Layer Actual Width = 1mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2763.815mil|Location2.X=2822.664mil|Location1.Y=4878.815mil|Location2.Y=4921.185mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2763.815mil|Location2.X=2822.664mil|Location1.Y=4878.815mil|Location2.Y=4921.185mil|Absolute=True">Width Constraint: Track (44.45mm,73.279mm)(46.228mm,71.501mm) on Top Layer Actual Width = 1mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2793.815mil|Location2.X=2852.664mil|Location1.Y=4593.815mil|Location2.Y=4636.185mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2793.815mil|Location2.X=2852.664mil|Location1.Y=4593.815mil|Location2.Y=4636.185mil|Absolute=True">Width Constraint: Track (44.831mm,66.421mm)(47.371mm,63.881mm) on Top Layer Actual Width = 1mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2749.445mil|Location2.X=2870.555mil|Location1.Y=3064.445mil|Location2.Y=3185.555mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2749.445mil|Location2.X=2870.555mil|Location1.Y=3064.445mil|Location2.Y=3185.555mil|Absolute=True">Width Constraint: Track (45.974mm,16.383mm)(45.974mm,38.227mm) on Bottom Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2789.445mil|Location2.X=2910.555mil|Location1.Y=2594.445mil|Location2.Y=2715.555mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2789.445mil|Location2.X=2910.555mil|Location1.Y=2594.445mil|Location2.Y=2715.555mil|Absolute=True">Width Constraint: Track (45.974mm,16.383mm)(48.006mm,14.351mm) on Bottom Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2749.445mil|Location2.X=2870.555mil|Location1.Y=3071.945mil|Location2.Y=3193.055mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2749.445mil|Location2.X=2870.555mil|Location1.Y=3071.945mil|Location2.Y=3193.055mil|Absolute=True">Width Constraint: Track (45.974mm,16.764mm)(45.974mm,38.227mm) on Top Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2796.945mil|Location2.X=2918.055mil|Location1.Y=2601.945mil|Location2.Y=2723.055mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2796.945mil|Location2.X=2918.055mil|Location1.Y=2601.945mil|Location2.Y=2723.055mil|Absolute=True">Width Constraint: Track (45.974mm,16.764mm)(48.387mm,14.351mm) on Top Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2821.315mil|Location2.X=2886.49mil|Location1.Y=4843.815mil|Location2.Y=4886.185mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2821.315mil|Location2.X=2886.49mil|Location1.Y=4843.815mil|Location2.Y=4886.185mil|Absolute=True">Width Constraint: Track (46.228mm,71.501mm)(47.371mm,71.501mm) on Top Layer Actual Width = 1mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3053.815mil|Location2.X=3118.99mil|Location1.Y=4543.815mil|Location2.Y=4586.185mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3053.815mil|Location2.X=3118.99mil|Location1.Y=4543.815mil|Location2.Y=4586.185mil|Absolute=True">Width Constraint: Track (47.371mm,63.881mm)(58.039mm,63.881mm) on Top Layer Actual Width = 1mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2883.815mil|Location2.X=2942.431mil|Location1.Y=4883.815mil|Location2.Y=4926.185mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2883.815mil|Location2.X=2942.431mil|Location1.Y=4883.815mil|Location2.Y=4926.185mil|Absolute=True">Width Constraint: Track (47.371mm,71.501mm)(49.403mm,73.533mm) on Top Layer Actual Width = 1mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3474.445mil|Location2.X=3595.555mil|Location1.Y=2554.445mil|Location2.Y=2675.555mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3474.445mil|Location2.X=3595.555mil|Location1.Y=2554.445mil|Location2.Y=2675.555mil|Absolute=True">Width Constraint: Track (48.006mm,14.351mm)(80.772mm,14.351mm) on Bottom Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3474.445mil|Location2.X=3595.555mil|Location1.Y=2554.445mil|Location2.Y=2675.555mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3474.445mil|Location2.X=3595.555mil|Location1.Y=2554.445mil|Location2.Y=2675.555mil|Absolute=True">Width Constraint: Track (48.387mm,14.351mm)(80.391mm,14.351mm) on Top Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3364.937mil|Location2.X=3430.112mil|Location1.Y=4923.815mil|Location2.Y=4966.185mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3364.937mil|Location2.X=3430.112mil|Location1.Y=4923.815mil|Location2.Y=4966.185mil|Absolute=True">Width Constraint: Track (49.403mm,73.533mm)(71.812mm,73.533mm) on Top Layer Actual Width = 1mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3273.284mil|Location2.X=3338.459mil|Location1.Y=2818.815mil|Location2.Y=2861.185mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3273.284mil|Location2.X=3338.459mil|Location1.Y=2818.815mil|Location2.Y=2861.185mil|Absolute=True">Width Constraint: Track (54.991mm,20.066mm)(61.568mm,20.066mm) on Top Layer Actual Width = 1mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3306.315mil|Location2.X=3371.49mil|Location1.Y=3218.815mil|Location2.Y=3261.185mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3306.315mil|Location2.X=3371.49mil|Location1.Y=3218.815mil|Location2.Y=3261.185mil|Absolute=True">Width Constraint: Track (54.991mm,30.226mm)(63.246mm,30.226mm) on Bottom Layer Actual Width = 1mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3148.815mil|Location2.X=3207.431mil|Location1.Y=3748.815mil|Location2.Y=3791.185mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3148.815mil|Location2.X=3207.431mil|Location1.Y=3748.815mil|Location2.Y=3791.185mil|Absolute=True">Width Constraint: Track (54.991mm,43.561mm)(55.245mm,43.815mm) on Top Layer Actual Width = 1mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3299.347mil|Location2.X=3364.521mil|Location1.Y=3753.815mil|Location2.Y=3796.185mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3299.347mil|Location2.X=3364.521mil|Location1.Y=3753.815mil|Location2.Y=3796.185mil|Absolute=True">Width Constraint: Track (55.245mm,43.815mm)(62.638mm,43.815mm) on Top Layer Actual Width = 1mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3170.784mil|Location2.X=3235.959mil|Location1.Y=4153.815mil|Location2.Y=4196.185mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3170.784mil|Location2.X=3235.959mil|Location1.Y=4153.815mil|Location2.Y=4196.185mil|Absolute=True">Width Constraint: Track (55.245mm,53.975mm)(56.107mm,53.975mm) on Bottom Layer Actual Width = 1mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3242.752mil|Location2.X=3301.368mil|Location1.Y=4208.815mil|Location2.Y=4251.185mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3242.752mil|Location2.X=3301.368mil|Location1.Y=4208.815mil|Location2.Y=4251.185mil|Absolute=True">Width Constraint: Track (56.107mm,53.975mm)(58.901mm,56.769mm) on Bottom Layer Actual Width = 1mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3388.815mil|Location2.X=3447.431mil|Location1.Y=4668.815mil|Location2.Y=4711.185mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3388.815mil|Location2.X=3447.431mil|Location1.Y=4668.815mil|Location2.Y=4711.185mil|Absolute=True">Width Constraint: Track (58.039mm,63.881mm)(64.389mm,70.231mm) on Top Layer Actual Width = 1mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3378.284mil|Location2.X=3443.459mil|Location1.Y=4263.815mil|Location2.Y=4306.185mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3378.284mil|Location2.X=3443.459mil|Location1.Y=4263.815mil|Location2.Y=4306.185mil|Absolute=True">Width Constraint: Track (58.901mm,56.769mm)(62.992mm,56.769mm) on Bottom Layer Actual Width = 1mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3326.315mil|Location2.X=3384.931mil|Location1.Y=3241.315mil|Location2.Y=3283.685mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3326.315mil|Location2.X=3384.931mil|Location1.Y=3241.315mil|Location2.Y=3283.685mil|Absolute=True">Width Constraint: Track (59.436mm,30.607mm)(59.817mm,30.988mm) on Bottom Layer Actual Width = 1mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3583.815mil|Location2.X=3648.99mil|Location1.Y=3518.815mil|Location2.Y=3561.185mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3583.815mil|Location2.X=3648.99mil|Location1.Y=3518.815mil|Location2.Y=3561.185mil|Absolute=True">Width Constraint: Track (59.436mm,37.846mm)(72.898mm,37.846mm) on Bottom Layer Actual Width = 1mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3327.84mil|Location2.X=3371.83mil|Location1.Y=3293.815mil|Location2.Y=3340.27mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3327.84mil|Location2.X=3371.83mil|Location1.Y=3293.815mil|Location2.Y=3340.27mil|Absolute=True">Width Constraint: Track (59.69mm,20.193mm)(59.69mm,44.069mm) on Top Layer Actual Width = 1mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3611.315mil|Location2.X=3676.49mil|Location1.Y=3593.815mil|Location2.Y=3636.185mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3611.315mil|Location2.X=3676.49mil|Location1.Y=3593.815mil|Location2.Y=3636.185mil|Absolute=True">Width Constraint: Track (59.69mm,39.751mm)(74.041mm,39.751mm) on Top Layer Actual Width = 1mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3332.84mil|Location2.X=3376.83mil|Location1.Y=3741.315mil|Location2.Y=3787.77mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3332.84mil|Location2.X=3376.83mil|Location1.Y=3741.315mil|Location2.Y=3787.77mil|Absolute=True">Width Constraint: Track (59.817mm,30.988mm)(59.817mm,56.007mm) on Bottom Layer Actual Width = 1mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3443.284mil|Location2.X=3502.133mil|Location1.Y=2778.284mil|Location2.Y=2820.653mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3443.284mil|Location2.X=3502.133mil|Location1.Y=2778.284mil|Location2.Y=2820.653mil|Absolute=True">Width Constraint: Track (61.568mm,20.066mm)(63.627mm,18.007mm) on Top Layer Actual Width = 1mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3553.815mil|Location2.X=3612.431mil|Location1.Y=4573.815mil|Location2.Y=4616.185mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3553.815mil|Location2.X=3612.431mil|Location1.Y=4573.815mil|Location2.Y=4616.185mil|Absolute=True">Width Constraint: Track (61.722mm,60.96mm)(69.088mm,68.326mm) on Top Layer Actual Width = 1mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3451.847mil|Location2.X=3510.463mil|Location1.Y=3760.784mil|Location2.Y=3803.153mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3451.847mil|Location2.X=3510.463mil|Location1.Y=3760.784mil|Location2.Y=3803.153mil|Absolute=True">Width Constraint: Track (62.638mm,43.815mm)(62.992mm,44.169mm) on Top Layer Actual Width = 1mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3558.815mil|Location2.X=3617.664mil|Location1.Y=4373.815mil|Location2.Y=4416.185mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3558.815mil|Location2.X=3617.664mil|Location1.Y=4373.815mil|Location2.Y=4416.185mil|Absolute=True">Width Constraint: Track (64.389mm,60.706mm)(66.675mm,58.42mm) on Bottom Layer Actual Width = 1mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3602.84mil|Location2.X=3646.83mil|Location1.Y=3918.815mil|Location2.Y=3965.27mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3602.84mil|Location2.X=3646.83mil|Location1.Y=3918.815mil|Location2.Y=3965.27mil|Absolute=True">Width Constraint: Track (66.675mm,37.592mm)(66.675mm,58.42mm) on Bottom Layer Actual Width = 1mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3602.84mil|Location2.X=3646.83mil|Location1.Y=3996.315mil|Location2.Y=4042.77mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3602.84mil|Location2.X=3646.83mil|Location1.Y=3996.315mil|Location2.Y=4042.77mil|Absolute=True">Width Constraint: Track (66.675mm,40.005mm)(66.675mm,59.944mm) on Top Layer Actual Width = 1mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3731.315mil|Location2.X=3789.931mil|Location1.Y=4516.315mil|Location2.Y=4558.685mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3731.315mil|Location2.X=3789.931mil|Location1.Y=4516.315mil|Location2.Y=4558.685mil|Absolute=True">Width Constraint: Track (66.675mm,59.944mm)(73.152mm,66.421mm) on Top Layer Actual Width = 1mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3697.84mil|Location2.X=3741.83mil|Location1.Y=4756.315mil|Location2.Y=4802.77mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3697.84mil|Location2.X=3741.83mil|Location1.Y=4756.315mil|Location2.Y=4802.77mil|Absolute=True">Width Constraint: Track (69.088mm,68.326mm)(69.088mm,70.231mm) on Top Layer Actual Width = 1mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3901.315mil|Location2.X=3966.49mil|Location1.Y=2823.815mil|Location2.Y=2866.185mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3901.315mil|Location2.X=3966.49mil|Location1.Y=2823.815mil|Location2.Y=2866.185mil|Absolute=True">Width Constraint: Track (70.485mm,20.193mm)(77.978mm,20.193mm) on Bottom Layer Actual Width = 1mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3752.84mil|Location2.X=3796.83mil|Location1.Y=3304.347mil|Location2.Y=3350.802mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3752.84mil|Location2.X=3796.83mil|Location1.Y=3304.347mil|Location2.Y=3350.802mil|Absolute=True">Width Constraint: Track (70.485mm,32.004mm)(70.485mm,32.793mm) on Top Layer Actual Width = 1mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3783.815mil|Location2.X=3842.664mil|Location1.Y=3258.815mil|Location2.Y=3301.185mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3783.815mil|Location2.X=3842.664mil|Location1.Y=3258.815mil|Location2.Y=3301.185mil|Absolute=True">Width Constraint: Track (70.485mm,32.004mm)(72.009mm,30.48mm) on Top Layer Actual Width = 1mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3916.315mil|Location2.X=3981.49mil|Location1.Y=3773.815mil|Location2.Y=3816.185mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3916.315mil|Location2.X=3981.49mil|Location1.Y=3773.815mil|Location2.Y=3816.185mil|Absolute=True">Width Constraint: Track (70.739mm,44.323mm)(78.486mm,44.323mm) on Bottom Layer Actual Width = 1mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3787.437mil|Location2.X=3846.287mil|Location1.Y=4246.256mil|Location2.Y=4288.626mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3787.437mil|Location2.X=3846.287mil|Location1.Y=4246.256mil|Location2.Y=4288.626mil|Absolute=True">Width Constraint: Track (70.739mm,56.923mm)(71.939mm,55.723mm) on Top Layer Actual Width = 1mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3832.437mil|Location2.X=3891.287mil|Location1.Y=4897.437mil|Location2.Y=4939.807mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3832.437mil|Location2.X=3891.287mil|Location1.Y=4897.437mil|Location2.Y=4939.807mil|Absolute=True">Width Constraint: Track (71.812mm,73.533mm)(73.152mm,72.193mm) on Top Layer Actual Width = 1mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3927.437mil|Location2.X=3992.612mil|Location1.Y=4222.634mil|Location2.Y=4265.004mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3927.437mil|Location2.X=3992.612mil|Location1.Y=4222.634mil|Location2.Y=4265.004mil|Absolute=True">Width Constraint: Track (71.939mm,55.723mm)(77.851mm,55.723mm) on Top Layer Actual Width = 1mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3933.815mil|Location2.X=3998.99mil|Location1.Y=3228.815mil|Location2.Y=3271.185mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3933.815mil|Location2.X=3998.99mil|Location1.Y=3228.815mil|Location2.Y=3271.185mil|Absolute=True">Width Constraint: Track (72.009mm,30.48mm)(78.105mm,30.48mm) on Top Layer Actual Width = 1mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3857.84mil|Location2.X=3901.83mil|Location1.Y=3296.315mil|Location2.Y=3342.77mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3857.84mil|Location2.X=3901.83mil|Location1.Y=3296.315mil|Location2.Y=3342.77mil|Absolute=True">Width Constraint: Track (73.152mm,20.193mm)(73.152mm,44.196mm) on Bottom Layer Actual Width = 1mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3857.84mil|Location2.X=3901.83mil|Location1.Y=4718.815mil|Location2.Y=4765.27mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3857.84mil|Location2.X=3901.83mil|Location1.Y=4718.815mil|Location2.Y=4765.27mil|Absolute=True">Width Constraint: Track (73.152mm,66.421mm)(73.152mm,70.231mm) on Top Layer Actual Width = 1mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3857.84mil|Location2.X=3901.83mil|Location1.Y=4832.437mil|Location2.Y=4878.892mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3857.84mil|Location2.X=3901.83mil|Location1.Y=4832.437mil|Location2.Y=4878.892mil|Absolute=True">Width Constraint: Track (73.152mm,70.231mm)(73.152mm,72.193mm) on Top Layer Actual Width = 1mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3902.84mil|Location2.X=3946.83mil|Location1.Y=3731.315mil|Location2.Y=3777.77mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3902.84mil|Location2.X=3946.83mil|Location1.Y=3731.315mil|Location2.Y=3777.77mil|Absolute=True">Width Constraint: Track (74.295mm,30.48mm)(74.295mm,56.007mm) on Top Layer Actual Width = 1mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3902.84mil|Location2.X=3946.83mil|Location1.Y=4023.815mil|Location2.Y=4070.27mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3902.84mil|Location2.X=3946.83mil|Location1.Y=4023.815mil|Location2.Y=4070.27mil|Absolute=True">Width Constraint: Track (74.295mm,45.339mm)(74.295mm,56.007mm) on Top Layer Actual Width = 1mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4078.815mil|Location2.X=4137.431mil|Location1.Y=3783.815mil|Location2.Y=3826.185mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4078.815mil|Location2.X=4137.431mil|Location1.Y=3783.815mil|Location2.Y=3826.185mil|Absolute=True">Width Constraint: Track (78.105mm,43.942mm)(79.375mm,45.212mm) on Top Layer Actual Width = 1mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4124.445mil|Location2.X=4245.555mil|Location1.Y=2574.445mil|Location2.Y=2695.555mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4124.445mil|Location2.X=4245.555mil|Location1.Y=2574.445mil|Location2.Y=2695.555mil|Absolute=True">Width Constraint: Track (80.391mm,14.351mm)(81.407mm,15.367mm) on Top Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4164.445mil|Location2.X=4285.555mil|Location1.Y=2599.445mil|Location2.Y=2720.555mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4164.445mil|Location2.X=4285.555mil|Location1.Y=2599.445mil|Location2.Y=2720.555mil|Absolute=True">Width Constraint: Track (80.772mm,14.351mm)(83.058mm,16.637mm) on Bottom Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4144.445mil|Location2.X=4265.555mil|Location1.Y=2596.945mil|Location2.Y=2718.055mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4144.445mil|Location2.X=4265.555mil|Location1.Y=2596.945mil|Location2.Y=2718.055mil|Absolute=True">Width Constraint: Track (81.407mm,15.367mm)(81.407mm,15.494mm) on Top Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4176.945mil|Location2.X=4298.055mil|Location1.Y=2631.945mil|Location2.Y=2753.055mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4176.945mil|Location2.X=4298.055mil|Location1.Y=2631.945mil|Location2.Y=2753.055mil|Absolute=True">Width Constraint: Track (81.407mm,15.494mm)(83.058mm,17.145mm) on Top Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4209.445mil|Location2.X=4330.555mil|Location1.Y=3289.445mil|Location2.Y=3410.555mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4209.445mil|Location2.X=4330.555mil|Location1.Y=3289.445mil|Location2.Y=3410.555mil|Absolute=True">Width Constraint: Track (83.058mm,16.637mm)(83.058mm,49.403mm) on Bottom Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4209.445mil|Location2.X=4330.555mil|Location1.Y=3299.445mil|Location2.Y=3420.555mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4209.445mil|Location2.X=4330.555mil|Location1.Y=3299.445mil|Location2.Y=3420.555mil|Absolute=True">Width Constraint: Track (83.058mm,17.145mm)(83.058mm,49.403mm) on Top Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4311.945mil|Location2.X=4433.055mil|Location1.Y=4036.945mil|Location2.Y=4158.055mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4311.945mil|Location2.X=4433.055mil|Location1.Y=4036.945mil|Location2.Y=4158.055mil|Absolute=True">Width Constraint: Track (83.058mm,49.403mm)(88.265mm,54.61mm) on Bottom Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4311.945mil|Location2.X=4433.055mil|Location1.Y=4036.945mil|Location2.Y=4158.055mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4311.945mil|Location2.X=4433.055mil|Location1.Y=4036.945mil|Location2.Y=4158.055mil|Absolute=True">Width Constraint: Track (83.058mm,49.403mm)(88.265mm,54.61mm) on Top Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4401.945mil|Location2.X=4523.055mil|Location1.Y=2354.445mil|Location2.Y=2475.555mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4401.945mil|Location2.X=4523.055mil|Location1.Y=2354.445mil|Location2.Y=2475.555mil|Absolute=True">Width Constraint: Track (87.376mm,9.271mm)(88.519mm,9.271mm) on Bottom Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4394.445mil|Location2.X=4515.555mil|Location1.Y=3201.945mil|Location2.Y=3323.055mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4394.445mil|Location2.X=4515.555mil|Location1.Y=3201.945mil|Location2.Y=3323.055mil|Absolute=True">Width Constraint: Track (87.757mm,23.749mm)(87.757mm,37.846mm) on Top Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4394.445mil|Location2.X=4515.555mil|Location1.Y=3214.445mil|Location2.Y=3335.555mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4394.445mil|Location2.X=4515.555mil|Location1.Y=3214.445mil|Location2.Y=3335.555mil|Absolute=True">Width Constraint: Track (87.757mm,23.749mm)(87.757mm,38.481mm) on Bottom Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4461.945mil|Location2.X=4583.055mil|Location1.Y=2856.945mil|Location2.Y=2978.055mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4461.945mil|Location2.X=4583.055mil|Location1.Y=2856.945mil|Location2.Y=2978.055mil|Absolute=True">Width Constraint: Track (87.757mm,23.749mm)(91.186mm,20.32mm) on Bottom Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4461.945mil|Location2.X=4583.055mil|Location1.Y=2856.945mil|Location2.Y=2978.055mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4461.945mil|Location2.X=4583.055mil|Location1.Y=2856.945mil|Location2.Y=2978.055mil|Absolute=True">Width Constraint: Track (87.757mm,23.749mm)(91.186mm,20.32mm) on Top Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4511.945mil|Location2.X=4633.055mil|Location1.Y=3596.945mil|Location2.Y=3718.055mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4511.945mil|Location2.X=4633.055mil|Location1.Y=3596.945mil|Location2.Y=3718.055mil|Absolute=True">Width Constraint: Track (87.757mm,37.846mm)(93.726mm,43.815mm) on Top Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4511.945mil|Location2.X=4633.055mil|Location1.Y=3621.945mil|Location2.Y=3743.055mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4511.945mil|Location2.X=4633.055mil|Location1.Y=3621.945mil|Location2.Y=3743.055mil|Absolute=True">Width Constraint: Track (87.757mm,38.481mm)(93.726mm,44.45mm) on Bottom Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4511.945mil|Location2.X=4633.055mil|Location1.Y=4139.445mil|Location2.Y=4260.555mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4511.945mil|Location2.X=4633.055mil|Location1.Y=4139.445mil|Location2.Y=4260.555mil|Absolute=True">Width Constraint: Track (88.265mm,54.61mm)(93.218mm,54.61mm) on Top Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4521.945mil|Location2.X=4643.055mil|Location1.Y=4139.445mil|Location2.Y=4260.555mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4521.945mil|Location2.X=4643.055mil|Location1.Y=4139.445mil|Location2.Y=4260.555mil|Absolute=True">Width Constraint: Track (88.265mm,54.61mm)(93.726mm,54.61mm) on Bottom Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4431.945mil|Location2.X=4553.055mil|Location1.Y=2374.445mil|Location2.Y=2495.555mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4431.945mil|Location2.X=4553.055mil|Location1.Y=2374.445mil|Location2.Y=2495.555mil|Absolute=True">Width Constraint: Track (88.392mm,9.779mm)(89.027mm,9.779mm) on Top Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4519.445mil|Location2.X=4640.555mil|Location1.Y=2449.445mil|Location2.Y=2570.555mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4519.445mil|Location2.X=4640.555mil|Location1.Y=2449.445mil|Location2.Y=2570.555mil|Absolute=True">Width Constraint: Track (88.519mm,9.271mm)(93.345mm,14.097mm) on Bottom Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4529.445mil|Location2.X=4650.555mil|Location1.Y=2459.445mil|Location2.Y=2580.555mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4529.445mil|Location2.X=4650.555mil|Location1.Y=2459.445mil|Location2.Y=2580.555mil|Absolute=True">Width Constraint: Track (89.027mm,9.779mm)(93.345mm,14.097mm) on Top Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4624.445mil|Location2.X=4745.555mil|Location1.Y=2294.445mil|Location2.Y=2415.555mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4624.445mil|Location2.X=4745.555mil|Location1.Y=2294.445mil|Location2.Y=2415.555mil|Absolute=True">Width Constraint: Track (89.789mm,3.937mm)(97.409mm,11.557mm) on Bottom Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4489.445mil|Location2.X=4610.555mil|Location1.Y=2151.945mil|Location2.Y=2273.055mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4489.445mil|Location2.X=4610.555mil|Location1.Y=2151.945mil|Location2.Y=2273.055mil|Absolute=True">Width Constraint: Track (90.17mm,3.937mm)(90.17mm,4.318mm) on Top Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4631.945mil|Location2.X=4753.055mil|Location1.Y=2301.945mil|Location2.Y=2423.055mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4631.945mil|Location2.X=4753.055mil|Location1.Y=2301.945mil|Location2.Y=2423.055mil|Absolute=True">Width Constraint: Track (90.17mm,4.318mm)(97.409mm,11.557mm) on Top Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4571.945mil|Location2.X=4693.055mil|Location1.Y=2789.445mil|Location2.Y=2910.555mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4571.945mil|Location2.X=4693.055mil|Location1.Y=2789.445mil|Location2.Y=2910.555mil|Absolute=True">Width Constraint: Track (91.186mm,20.32mm)(93.345mm,20.32mm) on Bottom Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4691.945mil|Location2.X=4813.055mil|Location1.Y=4056.945mil|Location2.Y=4178.055mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4691.945mil|Location2.X=4813.055mil|Location1.Y=4056.945mil|Location2.Y=4178.055mil|Absolute=True">Width Constraint: Track (93.218mm,54.61mm)(97.409mm,50.419mm) on Top Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4614.445mil|Location2.X=4735.555mil|Location1.Y=2666.945mil|Location2.Y=2788.055mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4614.445mil|Location2.X=4735.555mil|Location1.Y=2666.945mil|Location2.Y=2788.055mil|Absolute=True">Width Constraint: Track (93.345mm,14.097mm)(93.345mm,20.32mm) on Bottom Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4614.445mil|Location2.X=4735.555mil|Location1.Y=2666.945mil|Location2.Y=2788.055mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4614.445mil|Location2.X=4735.555mil|Location1.Y=2666.945mil|Location2.Y=2788.055mil|Absolute=True">Width Constraint: Track (93.345mm,14.097mm)(93.345mm,20.32mm) on Top Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4681.945mil|Location2.X=4803.055mil|Location1.Y=3189.445mil|Location2.Y=3310.555mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4681.945mil|Location2.X=4803.055mil|Location1.Y=3189.445mil|Location2.Y=3310.555mil|Absolute=True">Width Constraint: Track (93.345mm,30.48mm)(96.774mm,30.48mm) on Bottom Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4629.445mil|Location2.X=4750.555mil|Location1.Y=3726.945mil|Location2.Y=3848.055mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4629.445mil|Location2.X=4750.555mil|Location1.Y=3726.945mil|Location2.Y=3848.055mil|Absolute=True">Width Constraint: Track (93.726mm,43.815mm)(93.726mm,44.45mm) on Top Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4706.945mil|Location2.X=4828.055mil|Location1.Y=4076.945mil|Location2.Y=4198.055mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4706.945mil|Location2.X=4828.055mil|Location1.Y=4076.945mil|Location2.Y=4198.055mil|Absolute=True">Width Constraint: Track (93.98mm,54.737mm)(97.409mm,51.308mm) on Bottom Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4774.445mil|Location2.X=4895.555mil|Location1.Y=3209.445mil|Location2.Y=3330.555mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4774.445mil|Location2.X=4895.555mil|Location1.Y=3209.445mil|Location2.Y=3330.555mil|Absolute=True">Width Constraint: Track (97.409mm,11.557mm)(97.409mm,50.419mm) on Top Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4774.445mil|Location2.X=4895.555mil|Location1.Y=3226.945mil|Location2.Y=3348.055mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4774.445mil|Location2.X=4895.555mil|Location1.Y=3226.945mil|Location2.Y=3348.055mil|Absolute=True">Width Constraint: Track (97.409mm,51.308mm)(97.409mm,11.557mm) on Bottom Layer Actual Width = 3mm, Target Width = 0.254mm</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDTZU3WDT01HLND3Z1GCZJEFW2MM5QH2QQWGWFLOGN4XTVNZXBUGCI"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Hole Size Constraint (Min=0.025mm) (Max=2.54mm) (All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1425.635mil|Location2.X=1584.365mil|Location1.Y=4595.635mil|Location2.Y=4754.365mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1425.635mil|Location2.X=1584.365mil|Location1.Y=4595.635mil|Location2.Y=4754.365mil|Absolute=True">Hole Size Constraint: (4mm &gt; 2.54mm) Pad J1-10(12.827mm,66.675mm) on Multi-Layer Actual Hole Size = 4mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1425.635mil|Location2.X=1584.365mil|Location1.Y=2230.635mil|Location2.Y=2389.365mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1425.635mil|Location2.X=1584.365mil|Location1.Y=2230.635mil|Location2.Y=2389.365mil|Absolute=True">Hole Size Constraint: (4mm &gt; 2.54mm) Pad J1-9(12.827mm,6.604mm) on Multi-Layer Actual Hole Size = 4mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5730.635mil|Location2.X=5889.365mil|Location1.Y=4635.635mil|Location2.Y=4794.365mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5730.635mil|Location2.X=5889.365mil|Location1.Y=4635.635mil|Location2.Y=4794.365mil|Absolute=True">Hole Size Constraint: (4mm &gt; 2.54mm) Pad J4-10(122.174mm,67.691mm) on Multi-Layer Actual Hole Size = 4mm</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5730.635mil|Location2.X=5889.365mil|Location1.Y=2270.635mil|Location2.Y=2429.365mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5730.635mil|Location2.X=5889.365mil|Location1.Y=2270.635mil|Location2.Y=2429.365mil|Absolute=True">Hole Size Constraint: (4mm &gt; 2.54mm) Pad J4-9(122.174mm,7.62mm) on Multi-Layer Actual Hole Size = 4mm</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDPVNZYTJTU0YDFLLAB4X2W2D3HBWFC0W0LXSEUQL0UVC4GI4XV4AN"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Silk to Silk (Clearance=0.254mm) (All),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3375.875mil|Location2.X=3387.125mil|Location1.Y=4345.873mil|Location2.Y=4357.123mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3375.875mil|Location2.X=3387.125mil|Location1.Y=4345.873mil|Location2.Y=4357.123mil|Absolute=True">Silk To Silk Clearance Constraint: (0.085mm &lt; 0.254mm) Between Text "d3" (60.655mm,58.242mm) on Top Overlay And Track (30.099mm,58.42mm)(60.325mm,58.42mm) on Top Overlay Silk Text to Silk Clearance [0.085mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3375.875mil|Location2.X=3387.125mil|Location1.Y=4345.873mil|Location2.Y=4357.123mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Public\Documents\Altium\PCB1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3375.875mil|Location2.X=3387.125mil|Location1.Y=4345.873mil|Location2.Y=4357.123mil|Absolute=True">Silk To Silk Clearance Constraint: (0.085mm &lt; 0.254mm) Between Text "d3" (60.655mm,58.242mm) on Top Overlay And Track (60.325mm,39.116mm)(60.325mm,58.42mm) on Top Overlay Silk Text to Silk Clearance [0.085mm]</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br></body>
+</html>
